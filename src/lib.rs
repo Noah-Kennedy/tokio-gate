@@ -23,7 +23,7 @@ impl Gate {
         }
     }
 
-    #[cfg(feature = "parking-lot")]
+    #[cfg(all(feature = "parking-lot", not(loom)))]
     pub const fn const_new() -> Self {
         Self {
             notify: Notify::const_new(),
