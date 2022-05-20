@@ -61,7 +61,7 @@ impl Gate {
     }
 }
 
-#[cfg(feature = "parking-lot")]
+#[cfg(all(feature = "parking-lot", not(loom)))]
 fn lock_mutex(mtx: &Mutex<bool>) -> MutexGuard<'_, bool> {
     mtx.lock()
 }
