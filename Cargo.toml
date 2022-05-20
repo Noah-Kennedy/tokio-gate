@@ -1,0 +1,15 @@
+[package]
+name = "tokio-gate"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+parking-lot = ["parking_lot", "tokio/parking_lot"]
+
+[dependencies]
+tokio = { version = "1.18.2", features = ["sync"] }
+parking_lot = { version = "0.12.0", optional = true }
+
+[target.'cfg(loom)'.dependencies]
+loom = { version = "0.5.6", features = ["futures"] }
+futures = "0.3.21"
