@@ -1,4 +1,4 @@
-name: Test Commit
+name: PR Status Checks
 on: [push]
 jobs:
   check_features:
