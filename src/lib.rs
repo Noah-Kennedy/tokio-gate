@@ -23,7 +23,7 @@ impl Gate {
         }
     }
 
-    #[cfg(feature = "parking-lot")]
+    #[cfg(all(feature = "parking-lot", not(loom)))]
     pub const fn const_new() -> Self {
         Self {
             notify: Notify::const_new(),
@@ -61,12 +61,12 @@ impl Gate {
     }
 }
 
-#[cfg(feature = "parking-lot")]
+#[cfg(all(feature = "parking-lot", not(loom)))]
 fn lock_mutex(mtx: &Mutex<bool>) -> MutexGuard<'_, bool> {
     mtx.lock()
 }
 
-#[cfg(not(feature = "parking-lot"))]
+#[cfg(any(not(feature = "parking-lot"), loom))]
 fn lock_mutex(mtx: &Mutex<bool>) -> MutexGuard<'_, bool> {
     mtx.lock().unwrap()
 }
