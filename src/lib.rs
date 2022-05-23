@@ -66,7 +66,7 @@ fn lock_mutex(mtx: &Mutex<bool>) -> MutexGuard<'_, bool> {
     mtx.lock()
 }
 
-#[cfg(not(feature = "parking-lot"))]
+#[cfg(any(not(feature = "parking-lot"), loom))]
 fn lock_mutex(mtx: &Mutex<bool>) -> MutexGuard<'_, bool> {
     mtx.lock().unwrap()
 }
